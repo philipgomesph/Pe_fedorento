@@ -11,16 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pe_fedorento"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Produto.ViewProduto.TelaInserirProduto"
+            android:exported="false"
+            android:label="@string/title_activity_tela_inserir_produto"
+            android:theme="@style/Theme.Pe_fedorento" />
+        <activity
+            android:name=".Produto.ViewProduto.TelaProduto"
+            android:exported="false"
+            android:label="@string/title_activity_tela_produto"
+            android:theme="@style/Theme.Pe_fedorento" />
         <activity
             android:name=".Cliente.ViewCliente.TelaCliente"
             android:exported="false" />
         <activity
             android:name=".Cliente.ViewCliente.TelaClienteInserir"
             android:exported="false" />
-
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaCliente
+import com.pdm.pe_fedorento.Produto.ViewProduto.TelaProduto
 import com.pdm.pe_fedorento.ui.theme.Pe_fedorentoTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,7 +54,7 @@ fun ElementosDaTela(){
         Button(
             onClick = {
 
-               // contexto.startActivity(Intent(contexto, TelaMostrar::class.java))
+               contexto.startActivity(Intent(contexto, TelaProduto::class.java))
             },
             modifier = Modifier.width(300.dp)
         ) {

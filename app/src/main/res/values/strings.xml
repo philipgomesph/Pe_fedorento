@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">pe_fedorento</string>
+    <string name="title_activity_tela_produto">TelaProduto</string>
+    <string name="title_activity_tela_inserir_produto">TelaInserirProduto</string>
 </resources>
