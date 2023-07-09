@@ -30,11 +30,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.pdm.pe_fedorento.Shared.limparCampos
 
 class TelaClienteInserir (): ComponentActivity(){
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
-        val db = FirebaseFirestore.getInstance()
+
         setContent{
             Insercao()
         }
@@ -45,7 +48,7 @@ class TelaClienteInserir (): ComponentActivity(){
 @Composable
 fun Insercao(){
     val contexto = LocalContext.current
-
+    val db = FirebaseFirestore.getInstance()
 
 
     val cpfTextField = remember{ mutableStateOf(TextFieldValue()) }
@@ -117,17 +120,24 @@ fun Insercao(){
 
         Button(
             onClick = {
-                var valoreClientes= ContentValues().apply {
-                    put("cpf", cpfTextField.value.text)
-                    put("nome",nomeTextField.value.text)
-                    put("telefone", telefoneTextField.value.text)
-                    put("endereco",enderecoTextField.value.text)
-                    put("instagram", instagramTextField.value.text)
 
-                }
-                //val confirmaInserirCliente=db_insercao?.insert("cliente",null, valoreClientes)
-                //Log.i("Teste","Inserção:"+confirmaInserirCliente)
-                //Toast.makeText(contexto, "Inserção:"+confirmaInserirCliente, Toast.LENGTH_LONG).show()
+                val cliente = hashMapOf(
+                    "cpf" to cpfTextField.value.text,
+                    "nome" to nomeTextField.value.text,
+                    "telefone" to telefoneTextField.value.text,
+                    "endereco" to enderecoTextField.value.text,
+                    "instagram" to instagramTextField.value.text
+                )
+
+                db.collection("cliente").document(nomeTextField.value.text).set(cliente)
+                    .addOnSuccessListener {
+                        Toast.makeText(contexto, "Inserção realizada com sucesso", Toast.LENGTH_LONG).show()
+                        limparCampos(cpfTextField, nomeTextField, telefoneTextField, enderecoTextField, instagramTextField)
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(contexto, "Inserção não realizada", Toast.LENGTH_LONG).show()
+                    }
+
                 limparCampos(cpfTextField, nomeTextField, telefoneTextField, enderecoTextField, instagramTextField)
 
             },
