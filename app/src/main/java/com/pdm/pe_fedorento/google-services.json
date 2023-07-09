@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "906216689270",
+    "project_id": "pefedorento-536eb",
+    "storage_bucket": "pefedorento-536eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906216689270:android:9a9a85413bb0b1d0459957",
+        "android_client_info": {
+          "package_name": "com.pdm.pe_fedorento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906216689270-3mbtrdjcjq48h47pan7bk9tehjo2h03j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLNnXqvDQ326vdYXGlziwwHVSIUQ_Tje8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906216689270-3mbtrdjcjq48h47pan7bk9tehjo2h03j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
