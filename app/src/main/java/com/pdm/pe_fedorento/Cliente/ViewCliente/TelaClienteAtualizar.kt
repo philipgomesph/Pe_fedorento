@@ -29,47 +29,48 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pdm.pe_fedorento.Shared.limparCampos
 
-class TelaClienteInserir (): ComponentActivity(){
 
+class TelaClienteUpdate : ComponentActivity() {
 
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
 
-        setContent{
-            Insercao()
+        setContent {
+            UpdateCliente()
         }
     }
 }
 
 
 @Composable
-fun Insercao(){
+fun UpdateCliente() {
     val contexto = LocalContext.current
     val db = FirebaseFirestore.getInstance()
 
-
-    val cpfTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val nomeTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val telefoneTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val enderecoTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val instagramTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val activity=(LocalContext.current as? Activity)
-
-
-
+    val cpfTextField = remember { mutableStateOf(TextFieldValue()) }
+    val nomeTextField = remember { mutableStateOf(TextFieldValue()) }
+    val telefoneTextField = remember { mutableStateOf(TextFieldValue()) }
+    val enderecoTextField = remember { mutableStateOf(TextFieldValue()) }
+    val instagramTextField = remember { mutableStateOf(TextFieldValue()) }
+    val activity = (LocalContext.current as? Activity)
 
     Column(
         Modifier.padding(40.dp)
     ) {
-        Text(text = "Inserir Cliente", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+        Text(
+            text = "Atualizar Cliente",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
         Spacer(modifier = Modifier.height(25.dp))
         TextField(
-            value =cpfTextField.value ,
-            onValueChange ={cpfTextField.value = it},
-            placeholder = { Text(text = "CPF")},
+            value = cpfTextField.value,
+            onValueChange = { cpfTextField.value = it },
+            placeholder = { Text(text = "CPF") },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
             textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
             maxLines = 1,
@@ -78,49 +79,50 @@ fun Insercao(){
 
         Spacer(modifier = Modifier.height(15.dp))
         TextField(
-            value =nomeTextField.value ,
-            onValueChange ={nomeTextField.value = it},
-            placeholder = { Text(text = "Nome do Cliente")},
+            value = nomeTextField.value,
+            onValueChange = { nomeTextField.value = it },
+            placeholder = { Text(text = "Nome do Cliente") },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
             textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
             maxLines = 1,
-            modifier = Modifier.fillMaxWidth())
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
         TextField(
-            value =telefoneTextField.value ,
-            onValueChange ={telefoneTextField.value = it},
-            placeholder = { Text(text = "Telefone")},
+            value = telefoneTextField.value,
+            onValueChange = { telefoneTextField.value = it },
+            placeholder = { Text(text = "Telefone") },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
             textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
             maxLines = 1,
-            modifier = Modifier.fillMaxWidth())
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
         TextField(
-            value =enderecoTextField.value ,
-            onValueChange ={enderecoTextField.value = it},
-            placeholder = { Text(text = "Endereço")},
+            value = enderecoTextField.value,
+            onValueChange = { enderecoTextField.value = it },
+            placeholder = { Text(text = "Endereço") },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
             textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
             maxLines = 1,
-            modifier = Modifier.fillMaxWidth())
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
         TextField(
-            value =instagramTextField.value ,
-            onValueChange ={instagramTextField.value = it},
-            placeholder = { Text(text = "@Instagram")},
+            value = instagramTextField.value,
+            onValueChange = { instagramTextField.value = it },
+            placeholder = { Text(text = "@Instagram") },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
             textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
             maxLines = 1,
-            modifier = Modifier.fillMaxWidth())
-
-
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Button(
             onClick = {
-
                 val cliente = hashMapOf(
                     "cpf" to cpfTextField.value.text,
                     "nome" to nomeTextField.value.text,
@@ -129,13 +131,12 @@ fun Insercao(){
                     "instagram" to instagramTextField.value.text
                 )
 
-                db.collection("cliente").document(nomeTextField.value.text).set(cliente)
+                db.collection("cliente").document(nomeTextField.value.text).update(cliente as Map<String, Any>)
                     .addOnSuccessListener {
-                        Toast.makeText(contexto, "Inserção realizada com sucesso", Toast.LENGTH_LONG).show()
-
+                        Toast.makeText(contexto, "Atualização realizada com sucesso", Toast.LENGTH_LONG).show()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(contexto, "Inserção não realizada", Toast.LENGTH_LONG).show()
+                        Toast.makeText(contexto, "Atualização não realizada", Toast.LENGTH_LONG).show()
                     }
 
                 limparCampos(cpfTextField, nomeTextField, telefoneTextField, enderecoTextField, instagramTextField)
@@ -143,14 +144,12 @@ fun Insercao(){
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Inserir")
-
+            Text(text = "Atualizar")
         }
+
         Spacer(modifier = Modifier.weight(1f, true))
         Button(onClick = { activity?.finish() }, modifier = Modifier.fillMaxWidth()) {
             Text(text = "Voltar")
         }
     }
 }
-
-

@@ -16,7 +16,13 @@
             android:name=".Cliente.ViewCliente.TelaCliente"
             android:exported="false" />
         <activity
+            android:name=".Cliente.ViewCliente.TelaClienteUpdate"
+            android:exported="false" />
+        <activity
             android:name=".Cliente.ViewCliente.TelaClienteInserir"
+            android:exported="false" />
+        <activity
+            android:name=".Cliente.ViewCliente.TelaClienteMostrar"
             android:exported="false" />
 
 

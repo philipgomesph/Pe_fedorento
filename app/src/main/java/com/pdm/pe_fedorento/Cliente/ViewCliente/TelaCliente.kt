@@ -59,7 +59,7 @@ fun ElementosDaTela() {
         Button(
             onClick = {
 
-                //contexto.startActivity(Intent(contexto, TelaMostrar::class.java))
+                contexto.startActivity(Intent(contexto, TelaClienteMostrar::class.java))
             },
             modifier = Modifier.width(300.dp)
         ) {
@@ -69,7 +69,7 @@ fun ElementosDaTela() {
         Button(
             onClick = {
 
-                //contexto.startActivity(Intent(contexto, TelaAtualiza::class.java))
+                contexto.startActivity(Intent(contexto, TelaClienteUpdate::class.java))
             },
             modifier = Modifier.width(300.dp)
         ) {
