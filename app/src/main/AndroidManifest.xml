@@ -12,6 +12,11 @@
         android:theme="@style/Theme.Pe_fedorento"
         tools:targetApi="31">
         <activity
+            android:name=".Produto.ViewProduto.TelaProdutoMostrar"
+            android:exported="false"
+            android:label="@string/title_activity_tela_produto_mostrar"
+            android:theme="@style/Theme.Pe_fedorento" />
+        <activity
             android:name=".Produto.ViewProduto.TelaInserirProduto"
             android:exported="false"
             android:label="@string/title_activity_tela_inserir_produto"
@@ -33,8 +38,6 @@
         <activity
             android:name=".Cliente.ViewCliente.TelaClienteMostrar"
             android:exported="false" />
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

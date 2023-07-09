@@ -51,7 +51,9 @@ fun menuProduto(){
         }
 
         Spacer(modifier = Modifier.height(15.dp),)
-        Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = {
+            contexto.startActivity(Intent(contexto, TelaProdutoMostrar::class.java))
+        }, modifier = Modifier.fillMaxWidth()) {
             Text(text = "Mostrar")
         }
 
