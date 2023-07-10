@@ -32,23 +32,29 @@ class TelaInserirProduto : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
+        val idProduto = intent.getStringExtra("id")
+        val isEdit = intent.getBooleanExtra("edit",false)
 
         setContent {
             Pe_fedorentoTheme {
 
-                insereProduto()
+                insereProduto(idProduto,isEdit)
             }
         }
     }
 }
 
 @Composable
-fun insereProduto(){
+fun insereProduto(idProduto:String?,isEdit:Boolean?){
+
     val contexto = LocalContext.current
     val db = FirebaseFirestore.getInstance()
 
 
     val idProdutoTF = remember{ mutableStateOf(TextFieldValue()) }
+    if(isEdit == true){
+        idProdutoTF.value = TextFieldValue(idProduto.toString())
+    }
     val descricaoTF = remember{ mutableStateOf(TextFieldValue()) }
     val valorTF = remember{ mutableStateOf(TextFieldValue()) }
     val fotoTF = remember{ mutableStateOf(TextFieldValue()) }
@@ -63,15 +69,29 @@ fun insereProduto(){
     ) {
         Text(text = "Inserir Produto", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(25.dp))
-        TextField(
-            value =idProdutoTF.value ,
-            onValueChange ={idProdutoTF.value = it},
-            placeholder = { Text(text = "ID Produto")},
-            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
-            textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
-            maxLines = 1,
-            modifier = Modifier.fillMaxWidth()
-        )
+        if (isEdit == true){
+            TextField(
+                value =idProdutoTF.value ,
+                onValueChange ={idProdutoTF.value = it},
+                placeholder = { Text(text = "ID Produto")},
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
+                textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
+                maxLines = 1,
+                enabled = false,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }else{
+            TextField(
+                value =idProdutoTF.value ,
+                onValueChange ={idProdutoTF.value = it},
+                placeholder = { Text(text = "ID Produto")},
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
+                textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
+                maxLines = 1,
+                enabled = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
         Spacer(modifier = Modifier.height(15.dp))
         TextField(

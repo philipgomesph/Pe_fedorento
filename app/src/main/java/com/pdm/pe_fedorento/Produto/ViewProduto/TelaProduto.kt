@@ -11,11 +11,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pdm.pe_fedorento.Produto.ViewProduto.ui.theme.Pe_fedorentoTheme
 
 class TelaProduto : ComponentActivity() {
@@ -23,7 +27,6 @@ class TelaProduto : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Pe_fedorentoTheme {
-                // A surface container using the 'background' color from the theme
                 menuProduto()
             }
         }
@@ -38,36 +41,41 @@ fun menuProduto(){
 
     val activity = (contexto as? Activity)
 
-    Column(Modifier.padding(40.dp)) {
+    Column(
+        Modifier.padding(40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
 
-        Text(text = "Produtos", textAlign = TextAlign.Center)
-        Spacer(modifier = Modifier.height(35.dp))
+        Text(
+            text = "Produtos",
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .width(300.dp)
+                .padding(vertical = 16.dp),
+            style = TextStyle(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+
+                )
+        )
+        Spacer(modifier = Modifier.weight(1f, true))
 
         Button(onClick = {
             contexto.startActivity(Intent(contexto, TelaInserirProduto::class.java))
 
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Inserir")
+        }, modifier = Modifier.width(300.dp)) {
+            Text(text = "Inserir Produto")
         }
 
         Spacer(modifier = Modifier.height(15.dp),)
         Button(onClick = {
             contexto.startActivity(Intent(contexto, TelaProdutoMostrar::class.java))
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Mostrar")
+        },  modifier = Modifier.width(300.dp)) {
+            Text(text = "Gerenciar Produto")
         }
 
-        Spacer(modifier = Modifier.height(15.dp))
-        Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Atualizar")
-        }
 
-        Spacer(modifier = Modifier.height(15.dp))
-        Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Excluir")
-        }
-
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.weight(1f, true))
         Button(onClick = { activity?.finish() }, modifier = Modifier.fillMaxWidth()) {
             Text(text = "Voltar")
         }

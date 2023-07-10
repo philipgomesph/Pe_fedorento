@@ -12,11 +12,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pdm.pe_fedorento.MainActivity
 
 class TelaCliente: ComponentActivity() {
@@ -36,16 +40,23 @@ fun ElementosDaTela() {
     val contexto: Context = LocalContext.current
 
 
-    val cpfTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val nomeTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val telefoneTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val enderecoTextField = remember{ mutableStateOf(TextFieldValue()) }
-    val instagramTextField = remember{ mutableStateOf(TextFieldValue()) }
+    Column(Modifier.padding(40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Clientes",
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .width(300.dp)
+                .padding(vertical = 16.dp),
+            style = TextStyle(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
 
-
-    Column(Modifier.padding(40.dp)) {
-        Text(text = "Clientes", textAlign = TextAlign.Center, modifier = Modifier.width(300.dp))
-        Spacer(modifier = Modifier.height(15.dp))
+            )
+        )
+        Spacer(modifier = Modifier.weight(1f, true))
         Button(
             onClick = {
 
@@ -55,7 +66,7 @@ fun ElementosDaTela() {
         ) {
             Text(text = "Inserir Cliente")
         }
-        Spacer(modifier = Modifier.height(25.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Button(
             onClick = {
 
@@ -63,27 +74,7 @@ fun ElementosDaTela() {
             },
             modifier = Modifier.width(300.dp)
         ) {
-            Text(text = "Mostrar Clientes")
-        }
-        Spacer(modifier = Modifier.height(25.dp))
-        Button(
-            onClick = {
-
-                contexto.startActivity(Intent(contexto, TelaClienteUpdate::class.java))
-            },
-            modifier = Modifier.width(300.dp)
-        ) {
-            Text(text = "Alterar Clientes")
-        }
-        Spacer(modifier = Modifier.height(25.dp))
-        Button(
-            onClick = {
-
-                //contexto.startActivity(Intent(contexto, TelaDeletar::class.java))
-            },
-            modifier = Modifier.width(300.dp)
-        ) {
-            Text(text = "Excluir Clientes")
+            Text(text = "Gerenciar Clientes")
         }
 
         Spacer(modifier = Modifier.weight(1f, true))

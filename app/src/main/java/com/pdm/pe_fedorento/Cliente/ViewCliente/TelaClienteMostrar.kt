@@ -10,10 +10,13 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 
 import androidx.compose.foundation.layout.*
 
+
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -22,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -31,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pdm.pe_fedorento.Cliente.ModelCliente
+import com.pdm.pe_fedorento.Shared.voltaTela
 import kotlin.math.log
 
 
@@ -42,9 +47,7 @@ class TelaClienteMostrar : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val activity=(LocalContext.current as? Activity)
             MostrarClientes()
-
         }
     }
 }
@@ -54,9 +57,8 @@ fun MostrarClientes() {
     val clientes = remember { mutableStateListOf<ModelCliente>() }
     val activity=(LocalContext.current as? Activity)
     val db = FirebaseFirestore.getInstance()
-    var expanded = false
     val contexto = LocalContext.current
-    // Carrega os clientes do Firestore
+
     db.collection("cliente")
         .get()
         .addOnSuccessListener { result ->
@@ -70,20 +72,23 @@ fun MostrarClientes() {
                     instagram = clienteData["instagram"].toString()
                 )
                 clientes.add(cliente)
-                //val cliente = document.toObject(ModelCliente::class.java
+
             }
         }
 
 
 
     LazyColumn(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(14.dp)
     ) {
         items(clientes.size) { index ->
             Column(
+
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 24.dp)
+                    .padding(vertical = 10.dp)
+
+
 
             ) {
 
@@ -165,14 +170,12 @@ fun MostrarClientes() {
                     }
 
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.weight(1f, true))
             }
         }
 
-
-    }
-    Button(onClick = { activity?.finish() }, modifier = Modifier.fillMaxWidth()) {
-        Text(text = "Voltar")
     }
 }
+
+
 

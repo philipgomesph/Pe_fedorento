@@ -26,6 +26,13 @@
             android:exported="false"
             android:label="@string/title_activity_tela_produto"
             android:theme="@style/Theme.Pe_fedorento" />
+
+        <activity
+            android:name=".Produto.ViewProduto.TelaProdutoAtualiza"
+            android:exported="false"
+            android:label="@string/title_activity_tela_produto"
+            android:theme="@style/Theme.Pe_fedorento" />
+
         <activity
             android:name=".Cliente.ViewCliente.TelaCliente"
             android:exported="false" />

@@ -33,7 +33,6 @@ import com.pdm.pe_fedorento.Shared.limparCampos
 
 class TelaClienteUpdate : ComponentActivity() {
 
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
