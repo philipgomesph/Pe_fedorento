@@ -2,6 +2,7 @@ package com.pdm.pe_fedorento.Cliente.ViewCliente
 
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -38,21 +39,27 @@ class TelaClienteUpdate : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
+        val nomeCliente = intent.getStringExtra("nome")
+
 
         setContent {
-            UpdateCliente()
+            Toast.makeText(this, "Nome que veio: $nomeCliente", Toast.LENGTH_LONG).show()
+            if (nomeCliente != null) {
+                UpdateCliente(nomeCliente)
+            }
         }
     }
 }
 
 
 @Composable
-fun UpdateCliente() {
+public fun UpdateCliente(nomeParaEditar: String) {
     val contexto = LocalContext.current
     val db = FirebaseFirestore.getInstance()
 
     val cpfTextField = remember { mutableStateOf(TextFieldValue()) }
     val nomeTextField = remember { mutableStateOf(TextFieldValue()) }
+    nomeTextField.value = TextFieldValue(nomeParaEditar)
     val telefoneTextField = remember { mutableStateOf(TextFieldValue()) }
     val enderecoTextField = remember { mutableStateOf(TextFieldValue()) }
     val instagramTextField = remember { mutableStateOf(TextFieldValue()) }
@@ -74,7 +81,8 @@ fun UpdateCliente() {
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrect = true),
             textStyle = TextStyle(color = Color.Black, fontSize = TextUnit.Unspecified, fontFamily = FontFamily.SansSerif),
             maxLines = 1,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -131,15 +139,18 @@ fun UpdateCliente() {
                     "instagram" to instagramTextField.value.text
                 )
 
-                db.collection("cliente").document(nomeTextField.value.text).update(cliente as Map<String, Any>)
+                db.collection("cliente").document(nomeTextField.value.text).set(cliente)
                     .addOnSuccessListener {
                         Toast.makeText(contexto, "Atualização realizada com sucesso", Toast.LENGTH_LONG).show()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(contexto, "Atualização não realizada", Toast.LENGTH_LONG).show()
+                        Toast.makeText(contexto, "Atualização não realizada :${it}", Toast.LENGTH_LONG).show()
+                        Log.d("it" , it.toString())
                     }
 
                 limparCampos(cpfTextField, nomeTextField, telefoneTextField, enderecoTextField, instagramTextField)
+                activity?.finish()
+                contexto.startActivity(Intent(contexto, TelaClienteMostrar::class.java))
 
             },
             modifier = Modifier.fillMaxWidth()
