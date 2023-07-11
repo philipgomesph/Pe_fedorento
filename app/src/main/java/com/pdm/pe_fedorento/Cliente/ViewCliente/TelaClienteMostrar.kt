@@ -159,10 +159,16 @@ fun MostrarClientes() {
 
                     Button(
                         onClick = {
-                            var passaCpf = clientes[index].cpf
-                            Toast.makeText(contexto, "Cliente selecionado: ${clientes[index].cpf}", Toast.LENGTH_SHORT).show()
-                            // Implemente a lógica de exclusão aqui
-                        },
+                            //var passaCpf = clientes[index].cpf
+                            //Toast.makeText(contexto, "Cliente selecionado: ${clientes[index].cpf}", Toast.LENGTH_SHORT).show()
+
+
+                            var passaNome = clientes[index].nome
+                            Toast.makeText(contexto, "Cliente selecionado: ${clientes[index].nome}", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(contexto, TelaClienteComprar::class.java)
+                            intent.putExtra("nome", passaNome)
+                            contexto.startActivity(intent)
+                            activity?.finish()},
                         modifier = Modifier.weight(1f)
 
                     ) {

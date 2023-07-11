@@ -9,6 +9,6 @@ data class ModelCliente (val cpf: String,
                          val telefone: String,
                          val endereco: String,
                          val instagram: String,
-                         val pedidos: List<String> = listOf()
+                         val arrayPedidos: List<String> = listOf()
                          )
 

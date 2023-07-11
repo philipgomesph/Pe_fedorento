@@ -135,7 +135,8 @@ public fun UpdateCliente(nomeParaEditar: String) {
                     "nome" to nomeTextField.value.text,
                     "telefone" to telefoneTextField.value.text,
                     "endereco" to enderecoTextField.value.text,
-                    "instagram" to instagramTextField.value.text
+                    "instagram" to instagramTextField.value.text,
+
                 )
 
                 db.collection("cliente").document(nomeTextField.value.text).set(cliente)
