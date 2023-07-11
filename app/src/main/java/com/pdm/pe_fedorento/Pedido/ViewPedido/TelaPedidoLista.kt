@@ -206,7 +206,7 @@ fun listaPedidos(nomeCliente: String?) {
                 }
             }
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.height(36.dp))
         }
     }
 }
