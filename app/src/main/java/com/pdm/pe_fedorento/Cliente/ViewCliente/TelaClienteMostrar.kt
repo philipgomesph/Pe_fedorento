@@ -9,6 +9,7 @@ import android.widget.Toast
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pdm.pe_fedorento.Cliente.ModelCliente
 import com.pdm.pe_fedorento.Shared.voltaTela
+import com.pdm.pe_fedorento.ui.theme.Purple500
 import kotlin.math.log
 
 
@@ -87,38 +89,37 @@ fun MostrarClientes() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 10.dp)
-
-
+                    .border(border = BorderStroke(2.dp, Purple500), shape = RoundedCornerShape(15.dp))
 
             ) {
 
                 Text(
                     text = "${clientes[index].nome}",
                     style = TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Bold),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(10.dp,10.dp)
                 )
                 Text(
                     text = "CPF: ${clientes[index].cpf}",
                     style = TextStyle(fontSize = 14.sp, ),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
                 Text(
                     text = "Telefone: ${clientes[index].telefone}",
                     style = TextStyle(fontSize = 14.sp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
                 Text(
                     text = "Endereço: ${clientes[index].endereco}",
                     style = TextStyle(fontSize = 14.sp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
                 Text(
                     text = "Instagram: ${clientes[index].instagram}",
                     style = TextStyle(fontSize = 14.sp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth() .padding(15.dp,10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(

@@ -7,8 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -30,6 +34,7 @@ import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaClienteMostrar
 import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaClienteUpdate
 import com.pdm.pe_fedorento.ModelProduto.ModelProduto
 import com.pdm.pe_fedorento.Produto.ViewProduto.ui.theme.Pe_fedorentoTheme
+import com.pdm.pe_fedorento.ui.theme.Purple500
 
 class TelaProdutoMostrar : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,31 +77,32 @@ fun MostrarProdutos() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 10.dp)
+                    .border(border = BorderStroke(2.dp, Purple500), shape = RoundedCornerShape(15.dp))
 
             ) {
                 Text(
                     text = " ${produtos[index].descricao}",
                     style = TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Bold),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(10.dp, 5.dp)
                 )
                 Text(
                     text = "ID: ${produtos[index].id_produto}",
                     style = TextStyle(fontSize = 14.sp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
 
                 Text(
                     text = "Valor: ${produtos[index].valor}",
                     style = TextStyle(fontSize = 14.sp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
                 Text(
                     text = "Foto: ${produtos[index].foto}",
                     style = TextStyle(fontSize = 14.sp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth() .padding(5.dp,0.dp)
                 )
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth() .padding(10.dp, 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     Button(
