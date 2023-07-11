@@ -27,7 +27,9 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pdm.pe_fedorento.Cliente.ModelCliente
+import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaClienteComprar
 import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaClienteMostrar
+import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaClienteUpdate
 import com.pdm.pe_fedorento.Pedido.ModelPedido
 import com.pdm.pe_fedorento.Pedido.ViewPedido.ui.theme.Pe_fedorentoTheme
 import java.text.SimpleDateFormat
@@ -161,25 +163,49 @@ fun listaPedidos(nomeCliente: String?) {
             )
             Spacer(modifier = Modifier.width(16.dp))
 
-            Button(
-                onClick = {
-                    pedidos[index].id_pedido?.let {
-                        db.collection("pedidos").document(it).delete()
-                            .addOnSuccessListener {
-                                Toast.makeText(contexto, "Pedido excluído com sucesso", Toast.LENGTH_LONG).show()
-                                activity?.finish()
-                                contexto.startActivity(Intent(contexto, TelaPedidoLista::class.java))
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(contexto, "Falha ao excluir o pedido: $it", Toast.LENGTH_LONG).show()
-                                Log.d("Exclusão do pedido", it.toString())
-                            }
-                    }
-                },
-
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text("Deletar")
+                Button(
+                    onClick = {
+                        var passaIdPedido = pedidos[index].id_pedido
+                        Toast.makeText(contexto, "Pedido selecionado: ${pedidos[index].id_pedido}", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(contexto, TelaClienteComprar::class.java)
+                        intent.putExtra("idPedido", passaIdPedido)
+                        intent.putExtra("edit", true)
+                        intent.putExtra("nome", nomeCliente)
+                        contexto.startActivity(intent)
+                        activity?.finish()
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Editar")
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    onClick = {
+                        pedidos[index].id_pedido?.let {
+                            db.collection("pedidos").document(it).delete()
+                                .addOnSuccessListener {
+                                    Toast.makeText(contexto, "Pedido excluído com sucesso", Toast.LENGTH_LONG).show()
+                                    activity?.finish()
+                                    contexto.startActivity(Intent(contexto, TelaPedidoLista::class.java))
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(contexto, "Falha ao excluir o pedido: $it", Toast.LENGTH_LONG).show()
+                                    Log.d("Exclusão do pedido", it.toString())
+                                }
+                        }
+                    },
+
+                    ) {
+                    Text("Deletar")
+                }
             }
+
             Spacer(modifier = Modifier.width(16.dp))
         }
     }

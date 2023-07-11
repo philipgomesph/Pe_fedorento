@@ -36,10 +36,12 @@ class TelaClienteComprar : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
+        val idPedido = intent.getStringExtra("idPedido")
+        val isEdit = intent.getBooleanExtra("edit",false)
         val nomeCliente = intent.getStringExtra("nome")
 
         setContent {
-            ElementosDaTelaCompra(nomeCliente)
+            ElementosDaTelaCompra(nomeCliente,idPedido,isEdit)
         }
     }
 }
@@ -77,15 +79,18 @@ fun Rodape(valorTotal:Double){
 }
 
 @Composable
-fun ElementosDaTelaCompra(nomeCliente:String?) {
+fun ElementosDaTelaCompra(nomeCliente:String?,idPedido:String?,isEdit:Boolean) {
 
     val produtos = remember { mutableStateListOf<ModelProduto>() }
     val selectedItems = remember { mutableStateListOf<Boolean>() }
     val activity = (LocalContext.current as? Activity)
     val db = FirebaseFirestore.getInstance()
     val contexto = LocalContext.current
-    val id_pedido = UUID.randomUUID().toString()
+    var id_pedido = UUID.randomUUID().toString()
 
+    if (isEdit == true){
+        id_pedido = idPedido.toString()
+    }
     db.collection("produto")
         .get()
         .addOnSuccessListener { result ->
