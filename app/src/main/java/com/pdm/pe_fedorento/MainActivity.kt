@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pdm.pe_fedorento.Cliente.ViewCliente.TelaCliente
+import com.pdm.pe_fedorento.Pedido.ViewPedido.TelaListaClientePedidos
 import com.pdm.pe_fedorento.Produto.ViewProduto.TelaProduto
 import com.pdm.pe_fedorento.ui.theme.Pe_fedorentoTheme
 
@@ -82,7 +83,7 @@ fun ElementosDaTela(){
         Button(
             onClick = {
 
-                //contexto.startActivity(Intent(contexto, TelaAtualiza::class.java))
+                contexto.startActivity(Intent(contexto, TelaListaClientePedidos::class.java))
             },
             modifier = Modifier.width(300.dp)
         ) {

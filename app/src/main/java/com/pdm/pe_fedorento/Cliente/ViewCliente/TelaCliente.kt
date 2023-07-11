@@ -27,13 +27,13 @@ class TelaCliente: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ElementosDaTela()
+            ElementosDaTelaCliente()
         }
     }
 }
 
 @Composable
-fun ElementosDaTela() {
+fun ElementosDaTelaCliente() {
 
     val activity=(LocalContext.current as? Activity)
 

@@ -84,6 +84,7 @@ fun ElementosDaTelaCompra(nomeCliente:String?) {
     val activity = (LocalContext.current as? Activity)
     val db = FirebaseFirestore.getInstance()
     val contexto = LocalContext.current
+    val id_pedido = UUID.randomUUID().toString()
 
     db.collection("produto")
         .get()
@@ -158,27 +159,29 @@ fun ElementosDaTelaCompra(nomeCliente:String?) {
                 .filterNotNull()
 
             Button(
+
+
                 onClick = {
                     val pedido = hashMapOf(
-                        "data" to Date(),
+                        "id_pedido" to id_pedido,
+                        "dia" to Date(),
                         "nomeCliente" to nomeCliente,
                         "id_produtos" to listaDeProdutos,
                     )
 
                     val collectionRef = db.collection("pedidos")
 
-                    collectionRef
-                        .add(pedido)
-                        .addOnSuccessListener { documentRef ->
+                    db.collection("pedidos").document(id_pedido).set(pedido)
+                        .addOnSuccessListener {
                             Toast.makeText(contexto, "Pedido feito com sucesso", Toast.LENGTH_LONG).show()
-                            val idPedido = documentRef.id
+
 
                             if (nomeCliente != null) {
                                 val clienteRef = db.collection("cliente").document(nomeCliente)
                                 clienteRef.get().addOnSuccessListener { clienteSnapshot ->
                                     val idPedidosAntigos = clienteSnapshot.get("id_pedido") as? List<String> ?: emptyList()
                                     val idPedidosAtualizados = idPedidosAntigos.toMutableList().apply {
-                                        add(idPedido)
+                                        add(id_pedido)
                                     }
 
                                     clienteRef
